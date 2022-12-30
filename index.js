@@ -18,7 +18,12 @@
 
 const inquirer = require("inquirer");
 const prompt = inquirer.createPromptModule();
-const fs = require("fs")
+const fs = require("fs");
+const Employee = require("./lib/Employee");
+const Manager = require("./lib/Manager");
+const Engineer = require("./lib/Engineer");
+const Intern = require("./lib/Intern");
+const teamArr = [];
 
 
 prompt([
@@ -68,6 +73,9 @@ prompt([
           choices: ["Engineer", "Intern"]
       },
   ]).then ((answers) => {
+      const employeeInfo = {name : answers.mName, id : answers.mId, email : answers.mEmail, office : answers.office };
+      const employee = new Manager  
+      teamArr.push(member);  
       console.log(answers);
       answers.nextEmpRole === "Engineer" ? generateEng() : generateInt()
   });
@@ -210,3 +218,4 @@ prompt([
       })
   }
     
+module.exports = teamArr;
