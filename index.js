@@ -16,6 +16,10 @@
 // WHEN I decide to finish building my team
 // THEN I exit the application, and the HTML is generated
 
+const inquirer = require("inquirer");
+const prompt = inquirer.createPromptModule();
+const fs = require("fs")
+
 
 prompt([
     {
