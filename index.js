@@ -19,87 +19,118 @@
 const inquirer = require("inquirer");
 const prompt = inquirer.createPromptModule();
 const fs = require("fs");
-const Employee = require("./lib/Employee");
 const Manager = require("./lib/Manager");
 const Engineer = require("./lib/Engineer");
 const Intern = require("./lib/Intern");
 const teamArr = [];
+const generateHTML = require("./src/page-template");
+//Code from previous challenge for reference
 
-prompt([
-  {
-    type: "input",
-    message: "Who is the manager of this team?",
-    name: "mName",
-    validate: (name) => {
-      if (name) {
-        return true;
-      } else {
-        return "Please enter the name of your team's manager to continue!";
-      }
+// const writeToFile = function (markdown) {
+//     fs.writeFile('newREADME.md', markdown, (err) => {
+//       if (err)
+//         throw err;
+//       console.log('Success! Your README has been generated')
+//     });
+//   };
+
+const writeToFile = function (data) {
+  fs.writeFile("dist/team.html", data, (err) => {
+    if (err) throw err;
+    console.log("Success! your visual team roster has been created");
+  });
+};
+
+const startTeam = () => {
+  prompt([
+    {
+      type: "input",
+      message: "Who is the manager of this team?",
+      name: "mName",
+      validate: (name) => {
+        if (name) {
+          return true;
+        } else {
+          return "Please enter the name of your team's manager to continue!";
+        }
+      },
     },
-  },
-  {
-    type: "input",
-    message: (answers) => `What is ${answers?.mName}'s employee ID?`,
-    name: "mId",
-    validate: (id) => {
-      if (id) {
-        return /^[0-9]*$/.test(id)
-          ? true
-          : "Please enter the manager's employee id - only numerals are accepted";
-      } else {
-        return "Please enter the manager's employee id";
-      }
+    {
+      type: "input",
+      message: (answers) => `What is ${answers?.mName}'s employee ID?`,
+      name: "mId",
+      validate: (id) => {
+        if (id) {
+          return /^[0-9]*$/.test(id)
+            ? true
+            : "Please enter the manager's employee id - only numerals are accepted";
+        } else {
+          return "Please enter the manager's employee id";
+        }
+      },
     },
-  },
-  {
-    type: "input",
-    message: (answers) => `What is ${answers.mName}'s email address?`,
-    name: "mEmail",
-    validate: function (mEmail) {
-      if (mEmail) {
-        // Regex email check (return true if valid mail) from emailregex.com
-        return /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(
-          mEmail
-        )
-          ? true
-          : "Please enter a valid email address!";
-      } else {
-        return "Please enter the manager's email address";
-      }
+    {
+      type: "input",
+      message: (answers) => `What is ${answers.mName}'s email address?`,
+      name: "mEmail",
+      validate: function (mEmail) {
+        if (mEmail) {
+          // Regex email check (return true if valid mail) from emailregex.com
+          return /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(
+            mEmail
+          )
+            ? true
+            : "Please enter a valid email address!";
+        } else {
+          return "Please enter the manager's email address";
+        }
+      },
     },
-  },
-  {
-    type: "input",
-    message: (answers) => `What is ${answers.mName}'s office number?`,
-    name: "office",
-    validate: (officeNum) => {
-      if (officeNum) {
-        return /^[0-9]*$/.test(officeNum)
-          ? true
-          : "Please enter the office number - only numerals are accepted";
-      } else {
-        return "Please enter the manager's office number";
-      }
+    {
+      type: "input",
+      message: (answers) => `What is ${answers.mName}'s office number?`,
+      name: "office",
+      validate: (officeNum) => {
+        if (officeNum) {
+          return /^[0-9]*$/.test(officeNum)
+            ? true
+            : "Please enter the office number - only numerals are accepted";
+        } else {
+          return "Please enter the manager's office number";
+        }
+      },
     },
-  },
-  {
-    type: "list",
-    message: "Add team members! Which type of employee would you like to add?",
-    name: "nextEmpRole",
-    choices: ["Engineer", "Intern"],
-  },
-]).then((answers) => {
-  const employee = new Manager(
-    answers.mName,
-    answers.mId,
-    answers.mEmail,
-    answers.office
-  );
-  teamArr.push(employee);
-  console.log(answers);
-  answers.nextEmpRole === "Engineer" ? generateEng() : generateInt();
-});
+    {
+      type: "list",
+      message:
+        "Add team members! Which type of employee would you like to add?",
+      name: "nextEmpRole",
+      choices: ["Engineer", "Intern"],
+    },
+  ]).then((answers) => {
+    const employee = new Manager(
+      answers.mName,
+      answers.mId,
+      answers.mEmail,
+      answers.office
+    );
+    teamArr.push(employee);
+    console.log(answers);
+    answers.nextEmpRole === "Engineer" ? generateEng() : generateInt();
+  });
+};
+
+const addEmployee = () => {
+  prompt([
+    {
+      type: "list",
+      message:
+        "Add team members! Which type of employee would you like to add?",
+      name: "nextEmpRole",
+      choices: ["Engineer", "Intern", "My team is complete"],
+    },
+  ]);
+};
 
 const generateEng = () => {
   prompt([
@@ -175,13 +206,7 @@ const generateEng = () => {
     );
     teamArr.push(employee);
     if (answers.nextEmpRoleE === "The team is complete!") {
-      console.log("Your Team's profile is being created!");
-      console.log(teamArr);
-      //   fs.writeFile(`${answers.eName}.HTML`, html, (err) => {
-      //       if(err)
-      //           throw err;
-      //       console.log("Success! Your HTML page has been generated")
-      //   })
+      return writeToFile(generateHTML(teamArr));
     } else {
       return answers.nextEmpRoleE === "Add another engineer"
         ? generateEng()
@@ -189,16 +214,6 @@ const generateEng = () => {
     }
   });
 };
-
-//Code from previous challenge for reference
-
-// const writeToFile = function (markdown) {
-//     fs.writeFile('newREADME.md', markdown, (err) => {
-//       if (err)
-//         throw err;
-//       console.log('Success! Your README has been generated')
-//     });
-//   };
 
 const generateInt = () => {
   prompt([
@@ -274,13 +289,7 @@ const generateInt = () => {
     );
     teamArr.push(employee);
     if (answers.nextEmpRoleI === "The team is complete!") {
-      console.log("Your Team's profile is being created!");
-      console.log(teamArr);
-      //   fs.writeFile(`${answers.iName}.HTML`, html, (err) => {
-      //       if(err)
-      //           throw err;
-      //       console.log("Success! Your HTML page has been generated")
-      //   })
+      return writeToFile(generateHTML(teamArr));
     } else {
       return answers.nextEmpRoleI === "Add another intern"
         ? generateInt()
@@ -288,5 +297,5 @@ const generateInt = () => {
     }
   });
 };
-
-exports.teamArr = teamArr;
+startTeam();
+exports.arr = { teamArr };
