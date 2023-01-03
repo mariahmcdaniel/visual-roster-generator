@@ -1,88 +1,112 @@
-<!DOCTYPE html>
+
+  <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Visual Roster</title>
-    <style>
-      @import "https://cdn.simplecss.org/simple.min.css";
 
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Visual Roster</title>
+  <style>
+    @import "https://cdn.simplecss.org/simple.min.css";
+
+    main {
+      display: grid;
+      grid-column: 1/-1;
+      justify-items: center;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 1rem;
+      max-width: 1140px;
+      margin: auto;
+    }
+
+    body {
+      background-color: #89a868;
+      font-family: Verdana, Geneva, Tahoma, sans-serif;
+    }
+
+    header {
+      background-image: linear-gradient(#dfffbc, beige);
+      color: darkslategrey;
+    }
+
+    article {
+      width: 100%;
+      background-color: beige;
+      border-radius: 30px;
+    }
+
+    p {
+      text-align: center;
+      color: gray;
+      background-color: #fff0f3;
+    }
+
+    h2 {
+      text-align: center;
+      color: #135505;
+      background-color: #dfffbc;
+      border-radius: 20px;
+    }
+
+    @media screen and (max-width: 1140px) {
       main {
-        display: grid;
-        grid-column: 1/-1;
-        justify-items: center;
-        grid-template-columns: 1fr 1fr 1fr;
-        gap: 1rem;
-        max-width: 1140px;
-        margin: auto;
+        grid-template-columns: 1fr 1fr;
       }
+    }
 
-      @media screen and (max-width: 1140px) {
-        main {
-          grid-template-columns: 1fr 1fr;
-        }
+    @media screen and (max-width: 720px) {
+      main {
+        grid-template-columns: 1fr;
       }
+    }
+  </style>
+</head>
 
-      @media screen and (max-width: 720px) {
-        main {
-          grid-template-columns: 1fr;
-        }
-      }
-    </style>
-  </head>
-
-  <body>
-    <header>
-      <h1>My Team</h1>
-    </header>
-    <main>
-      <article>
-        <h2>Eric</h2>
-        <p>Manager</p>
-        <ul>
-          <li>ID: 208</li>
-          <li>
-            Email:
-            <a href="mailto:ericwood208@gmail.com">ericwood208@gmail.com</a>
-          </li>
-          <li>Office Number: 8</li>
-        </ul>
-      </article>
-
-      <article>
-        <h2>Mariah</h2>
+<body>
+  <header>
+    <h1>Our Team</h1>
+  </header>
+  <main>
+  
+        <article>
+      <h2>Jane</h2>
+      <p>Manager</p>
+      <ul>
+        <li>ID: 3</li>
+        <li>Email: <a href="mailto:jane@team.com">jane@team.com</a></li>
+        <li>Office Number: 322</li>
+      </ul>
+    </article>
+    
+    
+        <article>
+        <h2>Summer</h2>
         <p>Engineer</p>
         <ul>
-          <li>ID: 3</li>
-          <li>
-            Email:
-            <a href="mailto:mariahmcdaniel@icloud.com"
-              >mariahmcdaniel@icloud.com</a
-            >
-          </li>
-          <li>
-            GitHub:
-            <a href="https://github.com/mariahmcdaniel" target="_blank"
-              >mariahmcdaniel</a
-            >
-          </li>
+          <li>ID: 7</li>
+          <li>Email: <a href="mailto:summer@team.com">summer@team.com</a></li>
+          <li>GitHub: <a href="https://github.com/summerscode" target="_blank">summerscode</a></li>
         </ul>
       </article>
+      
+      
+    <article>
+      <h2>Mark</h2>
+      <p>Intern</p>
+      <ul>
+        <li>ID: 8</li>
+        <li>Email: <a href="mailto:mark@team.com">mark@team.com</a></li>
+        <li>School: Yale</li>
+      </ul>
+    </article>
 
-      <article>
-        <h2>Tripp</h2>
-        <p>Intern</p>
-        <ul>
-          <li>ID: 44</li>
-          <li>
-            Email:
-            <a href="mailto:trippthree@gmail.com">trippthree@gmail.com</a>
-          </li>
-          <li>School: Harvard</li>
-        </ul>
-      </article>
-    </main>
-    <footer>&copy; 2022-2023</footer>
-  </body>
+    
+  </main>
+  <footer>
+    &copy; 2022-2023
+  </footer>
+</body>
+
 </html>
+  

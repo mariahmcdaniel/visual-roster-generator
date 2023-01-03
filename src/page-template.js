@@ -85,6 +85,35 @@ module.exports = (team) => {
       margin: auto;
     }
 
+    body {
+      background-color: #89a868;
+      font-family: Verdana, Geneva, Tahoma, sans-serif;
+    }
+
+    header {
+      background-image: linear-gradient(#dfffbc, beige);
+      color: darkslategrey;
+    }
+
+    article {
+      width: 100%;
+      background-color: beige;
+      border-radius: 30px;
+    }
+
+    p {
+      text-align: center;
+      color: gray;
+      background-color: #fff0f3;
+    }
+
+    h2 {
+      text-align: center;
+      color: #135505;
+      background-color: #dfffbc;
+      border-radius: 20px;
+    }
+
     @media screen and (max-width: 1140px) {
       main {
         grid-template-columns: 1fr 1fr;
@@ -101,7 +130,7 @@ module.exports = (team) => {
 
 <body>
   <header>
-    <h1>My Team</h1>
+    <h1>Our Team</h1>
   </header>
   <main>
   ${generateTeamMembers(team)}
